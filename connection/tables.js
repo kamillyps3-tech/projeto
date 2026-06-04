@@ -31,9 +31,9 @@ const sql =
 const sql = 
     `CREATE TABLE IF NOT EXISTS fornecedores(
     id INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
-    nome VARCHAR (100) NOT NULL,
+    nome VARCHAR (100),
     telefone VARCHAR (15),
-    email VARCHAR (100) NOT NULL UNIQUE,
+    email VARCHAR (100),
     endereco VARCHAR (150)
     );
     `
@@ -52,10 +52,10 @@ const sql =
 const sql = 
     `CREATE TABLE IF NOT EXISTS produtos(
     id INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
-    nome VARCHAR (100) NOT NULL,
+    nome VARCHAR (100),
     descricao VARCHAR (200),
-    preco DECIMAL (10,2) NOT NULL,
-    estoque INT NOT NULL
+    preco DECIMAL (10,2),
+    estoque INT 
     );
     `
     this.connection.query(sql, (error) =>{
