@@ -27,5 +27,47 @@ const sql =
         
     })
 }
+    createTableFornecedor(){
+const sql = 
+    `CREATE TABLE IF NOT EXISTS fornecedores(
+    id INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
+    nome VARCHAR (100) NOT NULL,
+    telefone VARCHAR (15),
+    email VARCHAR (100) NOT NULL UNIQUE,
+    endereco VARCHAR (150)
+    );
+    `
+    this.connection.query(sql, (error) =>{
+        if(error){
+        console.log("Erro ao criar tabela Fornecedores")
+        console.log(error.message)
+        return
+    }
+
+    console.log("Tabela Fornecedores criada com sucesso")
+
+    })
+}
+    createTableProduto(){
+const sql = 
+    `CREATE TABLE IF NOT EXISTS produtos(
+    id INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
+    nome VARCHAR (100) NOT NULL,
+    descricao VARCHAR (200),
+    preco DECIMAL (10,2) NOT NULL,
+    estoque INT NOT NULL
+    );
+    `
+    this.connection.query(sql, (error) =>{
+        if(error){
+        console.log("Erro ao criar tabela Produtos")
+        console.log(error.message)
+        return
+    }
+
+    console.log("Tabela Produtos criada com sucesso")
+
+    })
+}
 }
 module.exports = new Tables()
