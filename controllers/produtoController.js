@@ -6,14 +6,14 @@ class produtoController {
     }
 
     criar(novoProduto){
-        return produtoModelModel.criar(novoProduto)
+        return produtoModel.criar(novoProduto)
     }
 
     alterar(produtoAtualizado, id){
         return produtoModel.atualizar(produtoAtualizado, id)
     }
 
-    apagar(produtoExclusao, id){
+    apagar(id){
         return produtoModel.deletar(id)
     }
 }
