@@ -2,7 +2,7 @@ const fornecedorModel = require ("../models/fornecedorModel")
 
 class fornecedorController {
     buscar(){
-        return forncedorModel.listar()
+        return fornecedorModel.listar()
     }
 
     criar(novoFornecedor){
@@ -13,7 +13,7 @@ class fornecedorController {
         return fornecedorModel.atualizar(fornecedorAtualizado, id)
     }
 
-    apagar(fornecedorExclusao, id){
+    apagar(id){
         return fornecedorModel.deletar(id)
     }
 }
