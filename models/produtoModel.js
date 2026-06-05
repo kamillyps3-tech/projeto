@@ -1,66 +1,68 @@
-const connection = require ("../connection/connection")
+const connection = require("../connection/connection");
 
-class produtoModel{
-    listar(){
-        const sql = "select * from produto"
+class produtoModel {
+  listar() {
+    const sql = "SELECT * FROM produtos";
 
-        return new Promise ((resolve, reject) => {
-          connection.query(sql, {}, (error, resposta) => {
-      
-            if(error){
-                console.log("Ocorreu um erro na consulta.")
-                reject(error)
-            }
-            
-            console.log("Consulta realizada com sucesso.")
-            resolve(resposta)    
+    return new Promise((resolve, reject) => {
+      connection.query(sql, {}, (error, resposta) => {
+        if (error) {
+          console.log("Ocorreu um erro na consulta.");
+          reject(error);
+        }
 
-          })
-        })
-    }
-    criar(novoProduto){
-        const sql = "insert into produto set ?"
-        console.log("Dados do produto a serem inseridos: ", novoProduto)
+        console.log("Consulta realizada com sucesso.");
+        resolve(resposta);
+      });
+    });
+  }
+  criar(novoProduto) {
+    const sql = "INSERT INTO produtos SET ?";
+    console.log("Dados do cliente a serem inseridos: ", novoProduto);
 
-        return new Promise ((resolve, reject) =>{
-          connection.query(sql, novoProduto, (error, resposta) =>{
-            if(error){
-              console.log("Erro ao inserir produto")
-              console.log(error.message)
-              reject(error)
-            }
-          })
-        })
-    }
-    atualizar(produtoAtualizado, id){
-      const sql = "update produto set ? where id=?"
-      return new Promise ((resolve, reject ) => {
-         connection.query(sql, [produtoAtualizado, id],(error, resposta) =>{
-          if(error){
-            console.log("Erro ao atualizar produto")
-            console.log(error.message)
-            reject(error)
-          }
-          console.log("Produto atualizado com sucesso.")
-         }) 
-      })
-    }
-    deletar(produtoExclusao, id){
-      const sql = "delete from produto where id=?"
-      return new Promise ((resolve, reject) => {
-          connection.query(sql, [produtoExclusao, id], (error, resposta) =>{
-            if(error){
-              console.log("Erro ao deletar o produto")
-              console.log(error.message)
-              reject(error)
-            }
-            console.log("Produto deletado com sucesso")
-            resolve(resposta)
-          })
-      })
-    }
+    return new Promise((resolve, reject) => {
+      connection.query(sql, novoProduto, (error, resposta) => {
+        if (error) {
+          console.log("Erro ao inserir produto.");
+          console.log(error.message);
+          return;
+          reject(error);
+        }
+        console.log("Produto inserido com sucesso.");
+        resolve(resposta);
+      });
+    });
+  }
+  atualizar(produtoAtualizado, id) {
+    const sql = "UPDATE produtos SET ? WHERE id=?";
+
+    return new Promise((resolve, reject) => {
+      connection.query(sql, [produtoAtualizado, id], (error, resposta) => {
+        if (error) {
+          return reject(error);
+        }
+
+        console.log("Produto atualizado com sucesso.");
+        resolve(resposta);
+      });
+    });
+  }
+  deletar(id) {
+    const sql = "DELETE FROM produtos WHERE id=?";
+
+    return new Promise((resolve, reject) => {
+      connection.query(sql, [id], (error, resposta) => {
+        if (error) {
+          console.log("Erro ao deletar o produto.");
+          console.log(error.message);
+          return reject(error);
+        }
+        console.log("Produto deletado com sucesso.");
+        resolve(resposta);
+      });
+    });
+  }
 }
 
-module.exports = new produtoModel()
-
+module.exports = new produtoModel();
 
