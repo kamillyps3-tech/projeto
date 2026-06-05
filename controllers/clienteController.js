@@ -13,7 +13,7 @@ class clienteController {
         return clienteModel.atualizar(clienteAtualizado, id)
     }
 
-    apagar(clienteExclusao, id){
+    apagar(id){
         return clienteModel.deletar(id)
     }
 }
