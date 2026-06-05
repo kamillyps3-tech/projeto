@@ -3,7 +3,7 @@ const app = express()
 const port = 3000 
 
 
-const router = require ("./routes/moduleRotule.js")
+const router = require ("./routes/moduleRoute.js")
 const conexao = require ("./connection/connection.js")
 const table = require ("./connection/tables.js")
 
@@ -23,5 +23,6 @@ app.listen(port, (error) => {
         console.log("servidor rodando na porta: " + port) 
     }
 })
+
 
 //criar os campos no mysql (4 atributos para cada tabela) fornecedor e produto
