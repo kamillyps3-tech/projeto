@@ -1,47 +1,40 @@
 const clienteController = require("../controllers/clienteController")
 
-const Router = require ("express").Router //EXPORTAÇÃO DO ROUTER DO PACOTE EXPRESS
+const Router = require("express").Router
 
-const router = Router() // INSTÂNCIA
+const router = Router()
 
-
-//CRUD
-
-router.get("/clientes" , (req, res) => {
-    const respcontroller = clienteController.buscar()
-
-    respcontroller.then(clientes => res.status(200).json(clientes))
-            .catch(error => res.status(400).json(error.message))
-    res.send("Cliente consultado com sucesso!")
+router.get("/clientes", (req, res) => {
+    clienteController.buscar()
+        .then(clientes => res.status(200).json(clientes))
+        .catch(error => res.status(400).json(error.message))
 })
 
-router.post("/cliente" , (req, res) => {
-    const novoCliente = req.body
-    const cliente = clienteController.criar(novoCliente)
+router.post("/clientes", (req, res) => {
+    const novoCliente = req.query
 
-    cliente.then(clienteInserido => res.status(201).json(clienteInserido))
-            .catch(error => res.status(400).json(error.message))
-    res.send("Cliente cadastrado com sucesso!")
+    clienteController.criar(novoCliente)
+        .then(resultado => res.status(201).json(resultado))
+        .catch(error => res.status(400).json(error.message))
 })
 
-router.put("/cliente:id" , (req, res) => {
-    const {id} = req.params
-    const clienteAtualizado = req.body
-    const clienteAtualizar  = clienteController.alterar(clienteAtualizado, id)
+router.put("/clientes", (req, res) => {
+    const id = req.query.id
 
-    clienteAtualizar.then(resultAtualizado => res.status(201).json(resultAtualizado))
-            .catch(error => res.status(400).json(error.message))
-    res.send(`Cliente atualizado com sucesso! ${id}`)
+    const clienteAtualizado = { ...req.query }
+    delete clienteAtualizado.id
+
+    clienteController.alterar(clienteAtualizado, id)
+        .then(resultado => res.status(200).json(resultado))
+        .catch(error => res.status(400).json(error.message))
 })
 
-router.delete("/cliente:id" , (req, res) => {
-    const {id} = req.params
-    const clienteDeletado = req.body
-    const clienteDeletar = clienteController.apagar(clienteDeletado, id)
+router.delete("/clientes", (req, res) => {
+    const id = req.query.id
 
-    clienteDeletar.then(clienteDeletado => res.status(200).json(clienteDeletado))
-            .catch(error => res.status(400).json(error.message))
-    res.send(`Cliente removido com sucesso! ${id}`)
+    clienteController.apagar(id)
+        .then(resultado => res.status(200).json(resultado))
+        .catch(error => res.status(400).json(error.message))
 })
 
 module.exports = router
