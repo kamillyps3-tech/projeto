@@ -1,11 +1,11 @@
+//  AQUIVO ONDE EXPORTA TODAS AS ROTAS CRIADAS
+
 const routerCliente = require("./clienteRoute")
-const routerFornecedor  = require("./fornecedorRoute")
 const routerProduto = require ("./produtoRoute")
+const routerFornecedor = require ("./fornecedorRoute")
 
 module.exports = (app) => {
     app.use(routerCliente)
-    app.use(routerFornecedor)    
-    app.use(routerProduto)
+    app.use(routerProduto)  
+    app.use(routerFornecedor)  
 }
-
-
