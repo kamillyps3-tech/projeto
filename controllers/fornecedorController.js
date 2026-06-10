@@ -1,21 +1,21 @@
-const fornecedorModel = require ("../models/fornecedorModel")
+const fornecedorModel = require("../models/fornecedorModel");
 
-class fornecedorController {
-    buscar(){
-        return fornecedorModel.listar()
+class FornecedorController {
+    buscar() {
+        return fornecedorModel.listar();
     }
 
-    criar(novoFornecedor){
-        return fornecedorModel.criar(novoFornecedor)
+    criar(novoFornecedor) {
+        return fornecedorModel.criar(novoFornecedor);
     }
 
-    alterar(fornecedorAtualizado, id){
-        return fornecedorModel.atualizar(fornecedorAtualizado, id)
+    alterar(fornecedorAtualizado, id) {
+        return fornecedorModel.atualizar(fornecedorAtualizado, id);
     }
 
-    apagar(id){
-        return fornecedorModel.deletar(id)
+    apagar(id) {
+        return fornecedorModel.deletar(id);
     }
 }
 
-module.exports = new fornecedorController()
+module.exports = new FornecedorController();
