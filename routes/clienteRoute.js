@@ -1,40 +1,47 @@
-const clienteController = require("../controllers/clienteController")
+const Router = require("express").Router;
 
-const Router = require("express").Router
+const router = Router();
 
-const router = Router()
+const clienteController = require("../controllers/clienteController");
+
+// CRUD
 
 router.get("/clientes", (req, res) => {
-    clienteController.buscar()
+    const respController = clienteController.buscar();
+
+    respController
         .then(clientes => res.status(200).json(clientes))
-        .catch(error => res.status(400).json(error.message))
-})
+        .catch(error => res.status(400).json(error.message));
+});
 
 router.post("/clientes", (req, res) => {
-    const novoCliente = req.query
+    const novoCliente = req.body;
+    const cliente = clienteController.criar(novoCliente);
 
-    clienteController.criar(novoCliente)
-        .then(resultado => res.status(201).json(resultado))
-        .catch(error => res.status(400).json(error.message))
-})
+    cliente
+        .then(clienteInserido => res.status(201).json(clienteInserido))
+        .catch(error => res.status(400).json(error.message));
+});
 
-router.put("/clientes", (req, res) => {
-    const id = req.query.id
+router.put("/cliente/:id", (req, res) => {
+    const { id } = req.params;
+    const clienteAtualizado = req.body;
 
-    const clienteAtualizado = { ...req.query }
-    delete clienteAtualizado.id
+    const clienteAtualizar = clienteController.alterar(clienteAtualizado, id);
 
-    clienteController.alterar(clienteAtualizado, id)
-        .then(resultado => res.status(200).json(resultado))
-        .catch(error => res.status(400).json(error.message))
-})
+    clienteAtualizar
+        .then(resultAtualizado => res.status(200).json(resultAtualizado))
+        .catch(error => res.status(400).json(error.message));
+});
 
-router.delete("/clientes", (req, res) => {
-    const id = req.query.id
+router.delete("/cliente/:id", (req, res) => {
+    const { id } = req.params;
 
-    clienteController.apagar(id)
-        .then(resultado => res.status(200).json(resultado))
-        .catch(error => res.status(400).json(error.message))
-})
+    const clienteDeletar = clienteController.apagar(id);
 
-module.exports = router
+    clienteDeletar
+        .then(clienteDeletado => res.status(200).json(clienteDeletado))
+        .catch(error => res.status(400).json(error.message));
+});
+
+module.exports = router;
