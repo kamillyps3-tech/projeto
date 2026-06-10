@@ -23,6 +23,3 @@ app.listen(port, (error) => {
         console.log("servidor rodando na porta: " + port) 
     }
 })
-
-
-//criar os campos no mysql (4 atributos para cada tabela) fornecedor e produto
