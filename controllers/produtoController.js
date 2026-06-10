@@ -1,21 +1,21 @@
-const produtoModel = require ("../models/produtoModel")
+const  produtoModel = require("../models/produtoModel");
 
-class produtoController {
-    buscar(){
-        return produtoModel.listar()
+class ProdutoController {
+    buscar() {
+        return produtoModel.listar();
     }
 
-    criar(novoProduto){
-        return produtoModel.criar(novoProduto)
+    criar(novoProduto) {
+        return produtoModel.criar(novoProduto);
     }
 
-    alterar(produtoAtualizado, id){
-        return produtoModel.atualizar(produtoAtualizado, id)
+    alterar(produtoAtualizado, id) {
+        return produtoModel.atualizar(produtoAtualizado, id);
     }
 
-    apagar(id){
-        return produtoModel.deletar(id)
+    apagar(id) {
+        return produtoModel.deletar(id);
     }
 }
 
-module.exports = new produtoController()
+module.exports = new ProdutoController();
