@@ -1,38 +1,52 @@
-const Router = require("express").Router
+const Router = require("express").Router;
 
-const router = Router()
+const router = Router();
+
+const produtoController = require("../controllers/produtoController");
+
+// CRUD
 
 router.get("/produtos", (req, res) => {
-    produtoController.buscar()
-        .then(fornecedores => res.status(200).json(fornecedores))
-        .catch(error => res.status(400).json(error.message))
-})
+    const respController = produtoController.buscar();
+
+    respController
+        .then(produtos => res.status(200).json(produtos))
+        .catch(error => res.status(400).json(error.message));
+});
 
 router.post("/produtos", (req, res) => {
-    const novoProduto = req.query
+    const novoProduto = req.body;
 
-    produtoController.criar(novoProduto)
-        .then(resultado => res.status(201).json(resultado))
-        .catch(error => res.status(400).json(error.message))
-})
+    const produto = produtoController.criar(novoProduto);
 
-router.put("/produtos", (req, res) => {
-    const id = req.query.id
+    produto
+        .then(produtoInserido => res.status(201).json(produtoInserido))
+        .catch(error => res.status(400).json(error.message));
+});
 
-    const produtoAtualizado = { ...req.query }
-    delete produtoAtualizado.id
+router.put("/produto/:id", (req, res) => {
+    const { id } = req.params;
 
-    produtoController.alterar(produtoAtualizado, id)
-        .then(resultado => res.status(200).json(resultado))
-        .catch(error => res.status(400).json(error.message))
-})
+    const produtoAtualizado = req.body;
 
-router.delete("/produtos", (req, res) => {
-    const id = req.query.id
+    const produtoAtualizar = produtoController.alterar(
+        produtoAtualizado,
+        id
+    );
 
-    produtoController.apagar(id)
-        .then(resultado => res.status(200).json(resultado))
-        .catch(error => res.status(400).json(error.message))
-})
+    produtoAtualizar
+        .then(resultAtualizado => res.status(200).json(resultAtualizado))
+        .catch(error => res.status(400).json(error.message));
+});
 
-module.exports = router
+router.delete("/produto/:id", (req, res) => {
+    const { id } = req.params;
+
+    const produtoDeletar = produtoController.apagar(id);
+
+    produtoDeletar
+        .then(produtoDeletado => res.status(200).json(produtoDeletado))
+        .catch(error => res.status(400).json(error.message));
+});
+
+module.exports = router;
